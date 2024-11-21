@@ -7,8 +7,8 @@ A warm and engaging platform designed for daily communication, reminders, and sh
 ### 1. User Switching
 - Supports multiple user profiles (Mom/Me)
 - Each user has a unique theme:
-  - **Mom**: A warm orange theme (Tiger Style 🐯)
-  - **Me**: A refreshing purple theme (Devil Style 😈)
+  - **Mom**: A warm orange theme (Tiger 🐯)
+  - **Me**: A refreshing purple theme (Dragon 😈)
 
 ### 2. Daily Features
 - **Real-Time Clock**: Displays both U.S. and China time zones
@@ -63,8 +63,8 @@ A warm and engaging platform designed for daily communication, reminders, and sh
 ### 1. 用户切换
 - 支持多用户切换（妈妈/我）
 - 每个用户都有独特的主题风格
-  - 妈妈：温暖的橙色主题 (Tiger Style 🐯)
-  - 我：清新的紫色主题 (Devil Style 😈)
+  - 妈妈：温暖的橙色主题 (Tiger 🐯)
+  - 我：清新的紫色主题 (Dragon 😈)
 
 ### 2. 日常功能 (Daily)
 - 实时时钟显示（美国/中国时区）
