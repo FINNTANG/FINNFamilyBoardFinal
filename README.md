@@ -1,3 +1,59 @@
+# Family Interactive Dashboard
+
+A warm and engaging platform designed for daily communication, reminders, and sharing among family members.
+
+## 🌟 Main Features
+
+### 1. User Switching
+- Supports multiple user profiles (Mom/Me)
+- Each user has a unique theme:
+  - **Mom**: A warm orange theme (Tiger Style 🐯)
+  - **Me**: A refreshing purple theme (Devil Style 😈)
+
+### 2. Daily Features
+- **Real-Time Clock**: Displays both U.S. and China time zones
+- **Weather Info**: Current weather updates
+- **Reminder System**:
+  - Drink water reminders
+  - Medication reminders
+  - Exercise reminders
+  - Custom reminders
+
+### 3. Media Sharing
+- **Image Upload & Display**
+- **Emoji Reactions**
+- **Commenting System**
+- **Image Previews**
+
+### 4. Reading Tracker
+- **Upload Book Covers**
+- **Track Reading Progress**
+- **Book Reviews**
+- **Emoji Reactions**
+
+### 5. Wish List
+- **Add New Wishes**
+- **Set Target Dates**
+- **Track Progress**
+- **Mark Wishes as Completed**
+
+## 🛠 Tech Stack
+
+- **HTML5**
+- **CSS3 (Tailwind CSS)**
+- **JavaScript** (Vanilla)
+- **LocalStorage** for Data Persistence
+- Responsive Design
+
+## 💫 Design Highlights
+
+- Carefully crafted gradient themes
+- Smooth animations
+- Glassmorphism effects
+- Adaptive layouts
+- Elegant loading animations
+- Intuitive user interactions
+
 # 家庭互动看板 (Family Interactive Dashboard)
 
 一个温馨的家庭互动平台，专为家人之间的日常交流、提醒和分享而设计。
