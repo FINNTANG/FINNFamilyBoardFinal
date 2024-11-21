@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Board - Reading</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="bg-gray-100" data-theme="me">
+    <div id="app" class="w-full max-w-6xl mx-auto p-4">
+        <div class="page-background-image" id="pageBgImg"></div>
+        <!-- Navigation -->
+        <nav class="flex justify-between items-center mb-8 bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
+            <div class="flex gap-6" id="userSelector">
+                <button data-user="mom" class="user-btn">
+                    <img src="images/mom-avatar.png" alt="Mom" class="w-14 h-14 rounded-2xl object-cover">
+                    <div class="flex flex-col items-center">
+                        <span class="font-medium text-lg">Mom</span>
+                        <span class="user-label text-sm">🐯</span>
+                    </div>
+                    <div class="decoration-dots"></div>
+                </button>
+                <button data-user="me" class="user-btn active">
+                    <img src="images/me-avatar.jpg" alt="Me" class="w-14 h-14 rounded-2xl object-cover">
+                    <div class="flex flex-col items-center">
+                        <span class="font-medium text-lg">Me</span>
+                        <span class="user-label text-sm">😈</span>
+                    </div>
+                    <div class="decoration-dots"></div>
+                </button>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="index.html" class="nav-link">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Daily 日常</span>
+                </a>
+                <a href="media.html" class="nav-link ">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                    <span>Media 媒体</span>
+                </a>
+                <a href="reading.html" class="nav-link active">
+                    <i data-lucide="book" class="w-5 h-5"></i>
+                    <span>Reading 阅读</span>
+                </a>
+                <a href="wishes.html" class="nav-link">
+                    <i data-lucide="heart" class="w-5 h-5"></i>
+                    <span>Wishes 愿望</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Reading Content -->
+        <div class="card p-4">
+            <div class="decoration-dots"></div>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">Reading List 阅读列表</h3>
+                <div class="flex gap-2">
+                    <label class="upload-btn cursor-pointer flex flex-col items-center gap-2">
+                        <input type="file" accept="image/*" id="bookUpload" class="hidden" multiple>
+                        <i data-lucide="upload" class="w-5 h-5"></i>
+                        <span>Upload Book Images 上传图片</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Upload Progress -->
+            <div id="uploadProgress" class="hidden mb-4">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="progress-bar bg-blue-500 h-2 rounded-full transition-all duration-300"
+                        style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">Uploading... <span class="progress-text">0%</span></p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+                <!-- Error messages will appear here -->
+            </div>
+
+            <!-- Book Grid -->
+            <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Book cards will be inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-12">
+                <i data-lucide="book-open" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+                <p class="text-gray-500">No books yet. Start by uploading some book images!</p>
+            </div>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="card mt-6">
+            <div class="decoration-dots"></div>
+            <div id="messageContainer" class="mb-4 h-96 overflow-y-auto space-y-4 p-6">
+                <!-- Messages will be inserted here -->
+            </div>
+            <div class="flex gap-3 p-6 border-t border-gray-100">
+                <textarea id="messageInput" placeholder="Type a message... (Enter to send)"
+                    class="flex-1 p-4 border rounded-xl resize-none min-h-[80px] focus:ring-2 transition-all duration-200"></textarea>
+                <button id="sendButton" class="send-btn">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <span>Send Message</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Details Dialog -->
+    <div id="bookDialog" class="dialog hidden">
+        <div class="dialog-content animate-slide-up">
+            <div class="decoration-dots"></div>
+            <!-- Content will be inserted dynamically -->
+        </div>
+    </div>
+
+    <!-- Emoji Picker Dialog -->
+    <div id="emojiDialog" class="dialog hidden">
+        <div class="dialog-content animate-slide-up">
+            <div class="decoration-dots"></div>
+            <h3 class="text-lg font-semibold mb-4">Add Reaction</h3>
+            <emoji-picker class="light"></emoji-picker>
+            <button class="close-btn mt-4">
+                <i data-lucide="x" class="w-5 h-5"></i>
+                <span>Close</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Comment Dialog -->
+    <div id="commentDialog" class="dialog hidden">
+        <div class="dialog-content animate-slide-up">
+            <div class="decoration-dots"></div>
+            <h3 class="text-lg font-semibold mb-4">Add Comment</h3>
+            <textarea id="commentText" class="w-full p-4 border rounded-xl resize-none min-h-[100px]"
+                placeholder="Write your comment here..."></textarea>
+            <div class="flex justify-end gap-3 mt-4">
+                <button class="close-btn">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                    <span>Cancel</span>
+                </button>
+                <button id="submitComment" class="primary-btn">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>Post Comment</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        window.onload = function () {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        };
+    </script>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
+    <!-- 核心脚本 -->
+    <script src="scripts/common.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/reading.js"></script>
+
+    <!-- 初始化脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            initializeCommon();
+            initializeReading();
+        });
+    </script>
+</body>
+
+</html>

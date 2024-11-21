@@ -1,0 +1,1166 @@
+/* 在文件开头添加 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  transition: background 0.3s ease-in-out;
+}
+
+/* 确保背景图案固定 */
+[data-theme='mom'],
+[data-theme='me'] {
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* 基础主题颜色 */
+:root {
+  --mom-primary: #ff9f43;
+  --mom-secondary: #ffd700;
+  --me-primary: #6c5ce7;
+  --me-secondary: #a8a4e6;
+}
+
+/* 全局样式 */
+body {
+  @apply min-h-screen transition-colors duration-300;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* 主题样式 */
+[data-theme='mom'] {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%) fixed;
+  position: relative;
+}
+
+[data-theme='mom']::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23FFB74D" opacity="0.03"><path d="..."/></svg>');
+  background-size: 500px;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+[data-theme='mom'] .card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.1);
+}
+
+[data-theme='mom'] .nav-link.active {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+  border-color: var(--mom-primary);
+  color: #d35400;
+}
+
+[data-theme='me'] {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%) fixed;
+  position: relative;
+}
+
+[data-theme='me']::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%236C5CE7" opacity="0.03"><path d="..."/></svg>');
+  background-size: 300px;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+[data-theme='me'] .card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.1);
+}
+
+[data-theme='me'] .nav-link.active {
+  background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+  border-color: var(--me-primary);
+  color: white;
+}
+
+/* 导航栏样式 */
+nav {
+  @apply backdrop-blur-md bg-white/80 rounded-2xl shadow-lg mb-8;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.05),
+    0 20px 60px -10px rgba(0, 0, 0, 0.02);
+}
+
+.nav-link {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: 15px;
+  @apply flex items-center gap-3 px-6 py-3 rounded-xl transition-all duration-300 text-gray-600 font-medium;
+}
+
+.nav-link:hover {
+  @apply transform -translate-y-0.5;
+}
+
+.nav-link i {
+  @apply w-5 h-5;
+}
+
+/* 用户选择器样式 */
+.user-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 15px;
+  @apply flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 relative overflow-hidden;
+}
+
+.user-btn img {
+  @apply w-14 h-14 rounded-2xl object-cover transition-transform duration-300;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-btn:hover img {
+  @apply transform scale-105;
+}
+
+/* Mom 风格 */
+.user-btn[data-user='mom'] {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+}
+
+.user-btn[data-user='mom'].active {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.2);
+}
+
+.user-btn[data-user='mom'] .user-label {
+  @apply text-orange-600;
+}
+
+/* Me 风格 */
+.user-btn[data-user='me'] {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+}
+
+.user-btn[data-user='me'].active {
+  background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+}
+
+.user-btn[data-user='me'] .user-label {
+  @apply text-purple-600;
+}
+
+/* 卡片样式 */
+.card {
+  @apply rounded-2xl p-8 backdrop-blur-md transition-all duration-300 relative overflow-hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.05),
+    0 20px 60px -10px rgba(0, 0, 0, 0.02);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* 消息样式 */
+.message {
+  @apply mb-6 max-w-[85%] transition-all duration-300;
+}
+
+.message.mom {
+  @apply ml-0 mr-auto;
+}
+
+.message.me {
+  @apply ml-auto mr-0;
+}
+
+.message.system {
+  @apply mx-auto max-w-[90%] text-center;
+}
+
+/* Instagram 风格的消息内容样式 */
+.message-content {
+  @apply p-6 backdrop-blur-md relative;
+  border-radius: 24px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  min-width: 120px;
+  padding: 12px 20px;
+  margin: 4px 0;
+}
+
+/* Mom 的消息样式 */
+[data-theme='mom'] .message.mom .message-content {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+  border-bottom-left-radius: 10px;
+}
+
+/* Me 的消息样式 */
+[data-theme='me'] .message.me .message-content {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  border-bottom-right-radius: 10px;
+}
+
+/* 消息头像样式优化 */
+.message img {
+  @apply border-2 border-white shadow-md;
+  width: 36px;
+  height: 36px;
+  margin: 0 8px;
+}
+
+/* 消息文本样式优化 */
+.message .text-sm {
+  @apply mb-1 opacity-75;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+/* 消息时间戳样式优化 */
+.message .text-xs {
+  @apply opacity-60;
+  font-size: 0.8rem;
+  margin-left: 8px;
+}
+
+/* 系统消息样式 */
+.message.system {
+  @apply text-gray-500 text-sm;
+}
+
+.message.system .flex {
+  @apply bg-gray-100/50 rounded-full px-4 py-2 backdrop-blur-sm;
+}
+
+/* 消息hover效果 */
+.message-content {
+  @apply transition-all duration-200;
+}
+
+.message-content:hover {
+  @apply transform scale-[1.02];
+}
+
+/* 按钮样式 */
+.primary-btn,
+.send-btn {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: 15px;
+  justify-content: center;
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 
+         flex items-center gap-2 text-white transform hover:-translate-y-0.5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='mom'] .primary-btn,
+[data-theme='mom'] .send-btn {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+}
+
+[data-theme='me'] .primary-btn,
+[data-theme='me'] .send-btn {
+  background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+}
+
+/* 输入框样式 */
+textarea,
+input,
+select {
+  @apply rounded-xl border-2 transition-all duration-200 backdrop-blur-sm;
+}
+
+[data-theme='mom'] textarea:focus,
+[data-theme='mom'] input:focus,
+[data-theme='mom'] select:focus {
+  @apply border-orange-400 ring-2 ring-orange-200;
+}
+
+[data-theme='me'] textarea:focus,
+[data-theme='me'] input:focus,
+[data-theme='me'] select:focus {
+  @apply border-purple-400 ring-2 ring-purple-200;
+}
+
+/* 动画效果 */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 主题切换动画 */
+.theme-transitioning {
+  transition: background-color 0.5s ease-in-out;
+}
+
+/* 装饰元素 */
+[data-theme='mom'] .decoration {
+  @apply absolute -z-10 opacity-10;
+  background-image: url('data:image/svg+xml,...'); /* 添加老虎图案的SVG */
+}
+
+[data-theme='me'] .decoration {
+  @apply absolute -z-10 opacity-10;
+  background-image: url('data:image/svg+xml,...'); /* 添加几何图案的SVG */
+}
+
+/* 对话框样式优化 */
+.dialog {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.dialog-content {
+  @apply bg-white rounded-3xl p-8 w-full max-w-lg transform transition-all duration-300;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='mom'] .dialog-content {
+  background: linear-gradient(135deg, #fff9f0 0%, #fff4e6 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .dialog-content {
+  background: linear-gradient(135deg, #f5f4ff 0%, #eeeeff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* 对话框动画 */
+.dialog-content {
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 提醒卡片样式 */
+.reminder-btn {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: 15px;
+  @apply flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-300 
+           font-medium text-lg relative overflow-hidden;
+}
+
+[data-theme='mom'] .reminder-btn {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='mom'] .reminder-btn:hover {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+  transform: translateY(-2px);
+}
+
+[data-theme='me'] .reminder-btn {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+[data-theme='me'] .reminder-btn:hover {
+  background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* 修改提醒消息样式 */
+.reminder-message {
+  @apply p-6 rounded-2xl mb-4 relative overflow-hidden transition-all duration-300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 水平居中 */
+  justify-content: center; /* 垂直居中 */
+  text-align: center;  /* 文本居中 */
+}
+
+[data-theme='mom'] .reminder-message {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .reminder-message {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* 优化提醒消息中的时间显示 */
+.reminder-message .text-sm {
+  @apply mt-2 text-gray-500;
+}
+
+/* 优化提醒消息中的完成按钮位置 */
+.reminder-message .complete-reminder {
+  @apply mt-2;
+}
+
+/* 书籍卡片样式 */
+.book-card {
+  @apply rounded-2xl overflow-hidden transition-all duration-300 relative;
+}
+
+[data-theme='mom'] .book-card {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .book-card {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* 愿望卡片样 */
+.wish-card {
+  @apply rounded-2xl p-6 transition-all duration-300 relative overflow-hidden;
+}
+
+[data-theme='mom'] .wish-card {
+  background: linear-gradient(135deg, #fff6e5 0%, #ffe9cc 100%);
+  border-left: 4px solid var(--mom-primary);
+}
+
+[data-theme='me'] .wish-card {
+  background: linear-gradient(135deg, #f1f1ff 0%, #e4e4ff 100%);
+  border-left: 4px solid var(--me-primary);
+}
+
+/* 按钮样式扩展 */
+.close-btn {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 
+           flex items-center gap-2 transform hover:-translate-y-0.5;
+}
+
+[data-theme='mom'] .close-btn {
+  @apply bg-gray-100 text-gray-600 hover:bg-gray-200;
+}
+
+[data-theme='me'] .close-btn {
+  @apply bg-gray-100 text-gray-600 hover:bg-gray-200;
+}
+
+/* 进度条样式 */
+.progress-bar {
+  @apply h-2 rounded-full overflow-hidden relative;
+}
+
+[data-theme='mom'] .progress-bar .progress {
+  background: linear-gradient(90deg, var(--mom-primary), var(--mom-secondary));
+}
+
+[data-theme='me'] .progress-bar .progress {
+  background: linear-gradient(90deg, var(--me-primary), var(--me-secondary));
+}
+
+/* 标签样式 */
+.tag {
+  @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+[data-theme='mom'] .tag {
+  @apply bg-orange-100 text-orange-600;
+}
+
+[data-theme='me'] .tag {
+  @apply bg-purple-100 text-purple-600;
+}
+
+/* 输入框样式增强 */
+textarea,
+input,
+select {
+  @apply bg-white/50 backdrop-blur-sm;
+}
+
+/* 动画效果 */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* 装饰性元素 */
+.decoration-dots {
+  @apply absolute pointer-events-none opacity-10;
+}
+
+[data-theme='mom'] .decoration-dots {
+  background-image: radial-gradient(var(--mom-primary) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+[data-theme='me'] .decoration-dots {
+  background-image: radial-gradient(var(--me-primary) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 滚动条样式优化 */
+#messageContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messageContainer::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-full;
+}
+
+#messageContainer::-webkit-scrollbar-thumb {
+    @apply rounded-full;
+    background: rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+#messageContainer::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='mom'] #messageContainer::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--mom-primary), var(--mom-secondary));
+}
+
+[data-theme='me'] #messageContainer::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--me-primary), var(--me-secondary));
+}
+
+/* 确保消息容器有正确的高度和滚动行为 */
+#messageContainer {
+    @apply h-96 overflow-y-auto overflow-x-hidden p-6;
+    scroll-behavior: smooth;
+    max-height: 400px; /* 设置最大高度 */
+}
+
+/* 优化消息容器的滚动体验 */
+.messages-wrapper {
+    @apply flex flex-col;
+    height: 100%;
+}
+
+/* 删除按样式 */
+.delete-btn {
+  @apply absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full opacity-0 
+           transition-all duration-200 hover:bg-red-600 transform hover:scale-110 z-10;
+}
+
+.media-item:hover .delete-btn,
+.book-card:hover .delete-btn {
+  @apply opacity-100;
+}
+
+/* 危险按钮样式 */
+.danger-btn {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 
+           flex items-center gap-2 text-white bg-red-500 hover:bg-red-600 
+           transform hover:-translate-y-0.5;
+}
+
+/* 添加下代码 */
+.theme-transition {
+  @apply transition-all duration-500;
+}
+
+[data-theme] {
+  @apply transition-colors duration-500;
+}
+
+.card {
+  @apply transition-transform duration-300 hover:scale-[1.01];
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 添加优雅的加载动画 */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.hover-float {
+  @apply transition-transform duration-300;
+}
+
+.hover-float:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.button-press {
+  @apply active:scale-95 transition-transform duration-150;
+}
+
+@media (hover: hover) {
+  .hover-effect {
+    @apply transition-all duration-300;
+  }
+
+  .hover-effect:hover {
+    @apply transform -translate-y-1;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    @apply p-4; /* 减小移动端padding */
+  }
+
+  .nav-link span {
+    @apply hidden; /* 在移动端只显示图标 */
+  }
+
+  .user-btn {
+    @apply px-3; /* 调整移动端按钮间距 */
+  }
+}
+
+.message.self {
+  text-align: right;
+}
+
+.message.self .flex.items-center {
+  justify-content: flex-end;
+}
+
+/* 提醒弹窗样式优化 */
+.reminder-toast {
+  @apply fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50
+         bg-white rounded-2xl shadow-lg p-4 min-w-[300px]
+         flex items-center gap-4 animate-slide-up;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.1),
+    0 20px 60px -10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='mom'] .reminder-toast {
+  background: linear-gradient(135deg, #fff9f0 0%, #fff4e6 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .reminder-toast {
+  background: linear-gradient(135deg, #f5f4ff 0%, #eeeeff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* 对话框内容样式优化 */
+.dialog-content {
+  @apply bg-white rounded-3xl p-8 w-full max-w-lg transform transition-all duration-300;
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.1),
+    0 20px 60px -10px rgba(0, 0, 0, 0.05);
+}
+
+/* 完成提醒弹窗样式优化 */
+#completionAlert.dialog {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+#completionAlert .dialog-content {
+  @apply max-w-md w-full text-center p-8 bg-white rounded-3xl;
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.1),
+    0 20px 60px -10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='mom'] #completionAlert .dialog-content {
+  background: linear-gradient(135deg, #fff9f0 0%, #fff4e6 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] #completionAlert .dialog-content {
+  background: linear-gradient(135deg, #f5f4ff 0%, #eeeeff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+#completionAlert .close-btn {
+  @apply w-full justify-center mt-6 py-4 text-lg font-medium;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+[data-theme='mom'] #completionAlert .close-btn {
+  background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+  color: #d35400;
+}
+
+[data-theme='me'] #completionAlert .close-btn {
+  background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+  color: white;
+}
+
+#completionAlert .close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 优化动画效果 */
+#completionAlert .dialog-content {
+  animation: alertPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes alertPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 文字排版优化 */
+#completionAlert .text-xl {
+  @apply tracking-wide;
+}
+
+#completionAlert .text-lg {
+  @apply leading-relaxed;
+}
+
+#completionAlert .text-sm {
+  @apply tracking-wide opacity-75;
+}
+
+/* 完成确认按钮样式 */
+.completion-btn {
+    @apply py-4 rounded-xl font-medium transition-all duration-300 
+           flex items-center justify-center gap-2 transform hover:-translate-y-0.5;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+[data-theme='mom'] .completion-btn {
+    background: linear-gradient(135deg, #ffd6a5 0%, #ffbe76 100%);
+    color: #d35400;
+    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .completion-btn {
+    background: linear-gradient(135deg, #a8a4e6 0%, #6c5ce7 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+}
+
+.completion-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.completion-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 优化完成提醒弹窗内容间距 */
+#completionAlert .dialog-content {
+    @apply p-8;
+}
+
+#completionAlert .text-5xl {
+    @apply mb-4;
+}
+
+#completionAlert .text-xl {
+    @apply mb-6;
+}
+
+#completionAlert .text-lg {
+    @apply mb-2;
+}
+
+#completionAlert .completion-btn {
+    @apply mt-8;
+}
+
+/* 清空消息按钮样式 */
+.clear-messages-btn {
+    @apply p-2 rounded-xl transition-all duration-300 relative group;
+    background: transparent;
+}
+
+.clear-messages-btn:hover {
+    @apply transform scale-110;
+}
+
+[data-theme='mom'] .clear-messages-btn {
+    @apply text-orange-500 hover:text-orange-600;
+}
+
+[data-theme='me'] .clear-messages-btn {
+    @apply text-purple-500 hover:text-purple-600;
+}
+
+/* 清空按钮提示文字 */
+.clear-tooltip {
+    @apply absolute -bottom-8 left-1/2 transform -translate-x-1/2 
+           px-2 py-1 rounded-lg text-xs font-medium
+           opacity-0 invisible transition-all duration-200;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    white-space: nowrap;
+}
+
+.clear-messages-btn:hover .clear-tooltip {
+    @apply opacity-100 visible -bottom-10;
+}
+
+/* 消息容器标题样式 */
+#messageContainer {
+    @apply relative;
+}
+
+/* 确保消息不会被标题遮挡 */
+#messageContainer .message:first-child {
+    @apply mt-0;
+}
+
+/* 优化消息容器的滚动条位置 */
+#messageContainer {
+    @apply overflow-y-auto;
+    height: calc(100% - 50px); /* 减去标题的高度 */
+}
+
+/* 添加清空确认对话框样式 */
+.confirm-dialog {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.confirm-dialog-content {
+    @apply bg-white rounded-3xl p-8 max-w-md w-full text-center transform transition-all duration-300;
+    animation: confirmPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes confirmPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 确保消息容器的内边距一致 */
+.card .message-header {
+    @apply px-6 pt-6 pb-2;
+}
+
+/* 优化消息列表的布局 */
+.messages-wrapper {
+    @apply flex flex-col h-full;
+}
+
+.messages-content {
+    @apply flex-1 overflow-y-auto;
+}
+
+/* 愿望表单容器样式 */
+.add-new-wish {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #fff;
+  border-radius: 24px;
+}
+
+/* 标题样式 */
+.add-new-wish h2 {
+  font-size: 24px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+/* 愿望内容区域 */
+.wish-content-container {
+  margin-bottom: 32px;
+}
+
+.wish-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.wish-content-header h3 {
+  font-size: 16px;
+  color: #333;
+}
+
+/* 输入框样式 */
+textarea.wish-input-area {
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  font-size: 16px;
+  resize: vertical;
+  background: #f8f8f8;
+}
+
+/* 日期和分类区域 */
+.wish-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.target-date-container,
+.category-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.target-date-container h3,
+.category-container h3 {
+  font-size: 16px;
+  color: #333;
+}
+
+/* 日期输入和分类选择框 */
+.date-input,
+.category-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #f8f8f8;
+}
+
+/* 添加愿望按钮 */
+.add-wish-button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 主题样式 */
+[data-theme='mom'] .add-new-wish {
+  background: linear-gradient(135deg, #fff9f0 0%, #fff4e6 100%);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+}
+
+[data-theme='me'] .add-new-wish {
+  background: linear-gradient(135deg, #f5f4ff 0%, #eeeeff 100%);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* 输入框焦点状态 */
+.wish-input-area:focus,
+.date-input:focus,
+.category-select:focus {
+  outline: none;
+  background: #fff;
+}
+
+[data-theme='mom'] .wish-input-area:focus,
+[data-theme='mom'] .date-input:focus,
+[data-theme='mom'] .category-select:focus {
+  border-color: var(--mom-primary);
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+}
+
+[data-theme='me'] .wish-input-area:focus,
+[data-theme='me'] .date-input:focus,
+[data-theme='me'] .category-select:focus {
+  border-color: var(--me-primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+/* 添加模块容器样式 */
+[data-theme='mom'] .module-container {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 159, 67, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='me'] .module-container {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* 添加悬停效果 */
+.module-container {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module-container:hover {
+  transform: translateY(-2px);
+}
+
+/* 天气卡片样式 */
+.weather-container {
+  @apply rounded-2xl p-6 backdrop-blur-md transition-all duration-300;
+  border-radius: 20px !important; /* 强制应用圆角 */
+  background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+}
+
+[data-theme='mom'] .weather-container {
+  border: 1px solid rgba(255, 159, 67, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.1);
+}
+
+[data-theme='me'] .weather-container {
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.1);
+}
+
+/* 所有功能模块的通用样式 */
+.module-container,
+.daily-container,
+.media-container,
+.reading-container,
+.wishes-container {
+  @apply rounded-2xl p-6 backdrop-blur-md transition-all duration-300;
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+}
+
+/* Mom主题下的模块样式 */
+[data-theme='mom'] .module-container,
+[data-theme='mom'] .daily-container,
+[data-theme='mom'] .media-container,
+[data-theme='mom'] .reading-container,
+[data-theme='mom'] .wishes-container {
+  border: 1px solid rgba(255, 159, 67, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.1);
+}
+
+/* Me主题下的模块样式 */
+[data-theme='me'] .module-container,
+[data-theme='me'] .daily-container,
+[data-theme='me'] .media-container,
+[data-theme='me'] .reading-container,
+[data-theme='me'] .wishes-container {
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.1);
+}
+
+/* 悬停效果 */
+.module-container:hover,
+.daily-container:hover,
+.media-container:hover,
+.reading-container:hover,
+.wishes-container:hover,
+.weather-container:hover {
+  transform: translateY(-2px);
+}
+
+
+.page-background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  /* z-index: -1; */
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url('../images/DragonFinn.png');
+  background-size: contain;
+}
+
+/* .page-background-image img {
+
+  width: 100%;
+  object-fit: cover;
+} */
